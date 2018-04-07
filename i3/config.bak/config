@@ -1,0 +1,349 @@
+set $mod Mod1
+set $sup Mod4
+set $ctl control
+
+font xft:DejaVu Sans Mono 9
+
+#gaps inner 10
+#gaps outer 0
+
+#hide_edge_borders both
+#new_window none
+new_window pixel 2
+
+set $fundo                  #1b1b1b
+set $fundo-inativo          #222222
+set $texto                  #ffffff
+set $texto-ativo            #3465a4
+set $texto-inativo          #888888
+set $texto-urgente          #cc5252
+set $fundo-urgente          #900000
+set $indicador              #00ff00
+set $separador              #666666
+set $borda                  #5b6365
+
+# classe                borda               fundo           texto                   indicador               borda_filha
+client.focused          $borda              $fundo-inativo  $texto                  $borda                  $borda
+client.unfocused        $borda              $fundo-inativo  $texto-inativo          $fundo-inativo          $borda
+client.focused_inactive $borda              $fundo-inativo  $texto-inativo          $fundo-inativo          $borda
+#client.urgent           $borda             $fundo-inativo  $fundo-urgente          $fundo-inativo          $borda
+client.urgent           $borda              $fundo-inativo  $texto-urgente          $fundo-inativo          $borda
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+for_window [instance="vncviewer"] move position center
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+for_window [window_type="About"] floating enable
+
+
+
+# exec
+#exec ~/data/scripts/dualscreen_autoset.sh
+#exec uim-toolbar-gtk3-systray
+exec --no-startup-id exec blueman-applet
+exec --no-startup-id exec nm-applet
+exec --no-startup-id exec volumeicon
+#exec --no-startup-id exec ibus-daemon -d
+#exec --no-startup-id exec fcitx -d
+exec --no-startup-id exec nimf-daemon
+#exec uim-xim
+#exec fcitx
+exec xmodmap ~/.Xmodmap
+#exec unclutter
+#exec compton -CGf --inactive-dim 0.1
+#exec compton -CGf
+#exec compton --config ~/.config/i3/compton.conf
+exec light -S 70
+#exec xbacklight = 80
+exec mo
+
+# startup workspace
+#exec --no-startup-id i3-msg 'workspace 1; exec urxvt'
+#exec --no-startup-id i3-msg 'workspace 2; exec chromium'
+#exec --no-startup-id i3-msg 'workspace 7; exec ~/data/Telegram/Telegram'
+#exec --no-startup-id i3-msg 'workspace 8; exec chromium'
+#exec --no-startup-id i3-msg 'workspace 9; exec thunderbird'
+#exec --no-startup-id i3-msg 'workspace 10; exec simplenote'
+
+#exec /usr/bin/aof
+#exec gnome-setings-daemon
+#exec /bin/bash /home/sungmin/scripts/office_arandr.sh
+
+bindcode $mod+67 exec amixer sset Master mute
+bindcode $mod+68 exec amixer -D pulse set Master 5%- unmute
+bindcode $mod+69 exec amixer -D pulse set Master 5%+ unmute
+#bindcode $mod+110 exec xbacklight -10
+#bindcode $mod+115 exec xbacklight +10
+bindcode $mod+110 exec light -A 10
+bindcode $mod+115 exec light -U 10
+
+#bindcode $mod+110 exec xbacklight - 10
+#bindcode $mod+115 exec xbacklight + 10
+
+# sup set
+bindsym $mod+Shift+i exec chromium-browser
+bindsym $mod+Shift+n exec gedit
+bindsym $mod+g exec gscreenshot
+bindsym $mod+i exec firefox
+bindsym $mod+u exec vncviewer
+#bindsym $mod+o exec simplenote
+bindsym $mod+o exec ~/Data/Workflowy/WorkFlowy-0.0.1-x86_64.AppImage
+bindsym $mod+m exec thunderbird
+bindsym $mod+x exec LD_PRELOAD=libcurl.so.3 nixnote2
+#bindcode $mod+21 exec firefox
+#bindcode $mod+74 exec "pkill -u sungmin"
+bindsym $mod+s exec /usr/bin/capture
+#bindsym $mod+Shift+Return exec thunar
+bindsym $mod+Shift+Return exec nautilus
+#bindsym $mod+p exec ~/.config/i3/i3lock-fancy-multimonitor/lock
+bindsym $mod+p exec ~/.config/i3/i3lock.sh
+
+# start a terminal
+#bindsym $mod+n exec terminology
+#bindsym $mod+n exec urxvt
+#bindsym $mod+n exec gnome-terminal
+bindsym $mod+n exec --no-startup-id terminator
+bindsym Print exec scrot -e ~/Pictures/capt-$(date '+%Y-%m-%d-%H%M%S').png
+#bindsym --release $mod+s exec scrot -e ~/Pictures/capt-$(date '+%Y-%m-%d-%H%M%S').png
+#bindsym --release $mod+s exec scrot -e ~/Pictures/capt-$(date '+%Y-%m-%d-%H%M%S').png
+#bindsym --release $mod+s exec scrot -e ~/pictures/스크린샷/capt-$(date '+%Y-%m-%d-%H%M%S').png
+#bindsym --release $mod+s exec scrot -s
+#bindsym --release $mod+s exec scrot -u ~/Pictures/screenshot/%Y%m%d-%H%M%S.png
+#bindsym --release $mod+shift+s exec scrot -u ~/Pictures/screenshot/%Y%m%d-%H%M%S.png
+bindsym --release $mod+s exec gscreenshot-cli -c -s -f ~/Pictures/screenshot/$(date '+%H%M%S').png
+#bindsym --release $mod+s exec gscreenshot-cli -c -s -f ~/Data/git/docs.wiki/oss/images/bacula/$(date '+%H%M%S').png
+#bindsym --release $mod+shift+s exec gscreenshot
+#bindsym --release $mod+s exec scrot -s ~/Pictures/screenshot/%Y%m%d-%H%M%S.png
+
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start dmenu (a program launcher)
+#bindsym $mod+d exec dmenu_run -nb '#315858'
+bindsym $mod+d exec --no-startup-id dmenu_run -fn 'DroidSanMono:bold:pixelsize=15' -sb '#a8c080'
+bindsym $mod+shift+d exec j4-dmenu-desktop --dmenu="dmenu -fn 'DroidSansMono:bold:pixelsize=16' -nb '#fdf6e3' -nf '#586c75' -sf '#fdf6e3' -sb '#FFAF00'"
+
+
+
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+#bindsym $mod+Left focus left
+#bindsym $mod+Down focus down
+#bindsym $mod+Up focus up
+#bindsym $mod+Right focus right
+
+#bindsym $mod+$ctl+h workspace prev
+bindsym $mod+w workspace prev
+#bindsym $ctl+Left workspace prev
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+#bindsym $mod+$ctl+l workspace next
+bindsym $mod+e workspace next
+#bindsym $ctl+Right workspace next
+
+# move focused win
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+c split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, toggle split)
+#bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+Shift+t layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle move position center
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+#bindsym $ctl+1 workspace 1
+#bindsym $ctl+2 workspace 2
+#bindsym $ctl+3 workspace 3
+#bindsym $ctl+4 workspace 4
+#bindsym $ctl+5 workspace 5
+#bindsym $ctl+6 workspace 6
+#bindsym $ctl+7 workspace 7
+#bindsym $ctl+8 workspace 8
+#bindsym $ctl+9 workspace 9
+#bindsym $ctl+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+
+
+################### DUAL SCREEN ######################
+
+
+# setting variables for later use
+# use xrandr to know the names of your monitors
+# use this line to tell which monitor is on the right
+# xrandr --output DVI-I-2 --right-of DVI-I-1 --auto
+#exec xrandr --output VIRTUAL1 --off --output DP3 --off --output DP2 --off --output DP1 --off --output HDMI3 --mode 1920x1200 --pos 0x0 --rotate normal --output HDMI2 --off --output HDMI1 --off --output LVDS1 --mode 1366x768 --pos 1920x432 --rotate normal --output VGA1 --off
+
+# my current setup
+#set $firstMonitor HDMI2
+#set $secondMonitor LVDS1
+
+#set $firstMonitor DP-1
+#set $secondMonitor eDP-1
+
+#set $firstMonitor HDMI-2
+#set $secondMonitor eDP-1
+
+#set $firstMonitor DVI-I-2
+#set $secondMonitor VGA-0
+
+#set $firstMonitor DVI-I-2
+#set $secondMonitor DVI-I-3
+
+#set $firstMonitor DVI-0
+#set $secondMonitor DVI-1
+
+#set $firstMonitor DP-3
+set $firstMonitor DP-2
+#set $firstMonitor VGA-1
+set $secondMonitor LVDS-1
+
+workspace 1 output $firstMonitor
+workspace 2 output $firstMonitor
+workspace 3 output $firstMonitor
+workspace 4 output $firstMonitor
+workspace 5 output $firstMonitor
+workspace 6 output $firstMonitor
+workspace 7 output $firstMonitor
+workspace 8 output $secondMonitor
+workspace 9 output $secondMonitor
+workspace 10 output $secondMonitor
+
+#workspace 10 output LVDS-1
+#workspace 1 output VGA-1
+#workspace 1 output HDMI-3
+
+
+
+
+################### MODE_SYSTEM ######################
+
+
+bindsym $mod+Shift+p mode "$mode_system"
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Alt+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id ~/.config/i3/i3exit.sh lock, mode "default"
+    bindsym e exec --no-startup-id ~/.config/i3/i3exit.sh logout, mode "default"
+    bindsym s exec --no-startup-id ~/.config/i3/i3exit.sh suspend, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3/i3exit.sh hibernate, mode "default"
+    bindsym r exec --no-startup-id ~/.config/i3/i3exit.sh reboot, mode "default"
+    bindsym $mod+s exec --no-startup-id ~/.config/i3/i3exit.sh shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+
+################### BAR APPEARANCE ######################
+bar {
+    font xft:FontAwesome 9
+    tray_output none
+    status_command i3blocks -v -c ~/.config/i3/blocks
+    colors {
+        background  $fundo-inativo
+        separator   $separador
+        #                   borda           fundo           texto
+        focused_workspace   $fundo-inativo  $fundo-inativo  $texto-ativo
+        inactive_workspace  $fundo-inativo  $fundo-inativo  $texto-inativo
+        urgent_workspace    $fundo-inativo  $fundo-inativo  $texto-urgente
+    }
+}
+
